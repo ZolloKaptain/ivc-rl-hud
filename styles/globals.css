@@ -1,26 +1,94 @@
-html,
+@font-face {
+  font-family: "Mont";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/Mont-HeavyDEMO.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Mont";
+  font-style: normal;
+  font-weight: 100;
+  src: url("/fonts/Mont-ExtraLightDEMO.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "TheBoldFont";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/THEBOLDFONT2022.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "The Bold Font";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/THEBOLDFONT2022.otf") format("opentype");
+}
+
 body {
-  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  padding: 0;
+  border: 0;
+  height: 1080px;
+  width: 1920px;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+h1,
+p {
+  margin: 0;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@keyframes slide-out-right {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
   }
-  body {
-    color: white;
-    background: black;
+  100% {
+    transform: translateX(200px);
+    opacity: 0;
   }
+}
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(200px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-out-left {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+}
+.slide-in-right {
+  animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.slide-in-left {
+  animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.slide-out-left {
+  animation: slide-out-left 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+.slide-out-right {
+  animation: slide-out-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
 }
