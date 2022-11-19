@@ -5,16 +5,38 @@ export default function RightTeam({
   seriesScore,
   textColorOnPrimary,
   textColorOnSecondary,
+  seriesLength,
 }: {
   team: Team;
   seriesScore: number;
   textColorOnPrimary: string;
   textColorOnSecondary: string;
+  seriesLength: number;
 }) {
   return (
     <>
       {(() => {
         let seriesScoreIndicators = [];
+
+        if (seriesLength === 3) {
+          for (let i = 0; i < seriesScore; i++) {
+            seriesScoreIndicators.push(
+              <div
+                style={{
+                  width: "20px",
+                  height: "4px",
+                  position: "absolute",
+                  left: 30 * i + 10 + "px",
+                  bottom: "3px",
+                  backgroundColor: "#" + textColorOnPrimary,
+                }}
+                key={i}
+              ></div>
+            );
+          }
+          return seriesScoreIndicators;
+        }
+
         for (let i = 0; i < seriesScore; i++) {
           seriesScoreIndicators.push(
             <div
@@ -26,11 +48,13 @@ export default function RightTeam({
                 bottom: "3px",
                 backgroundColor: "#" + textColorOnPrimary,
               }}
+              key={i}
             ></div>
           );
         }
         return seriesScoreIndicators;
       })()}
+
       <div
         style={{
           position: "absolute",
@@ -126,10 +150,31 @@ export default function RightTeam({
                 width="290"
                 height="70"
               />
-              <path
-                className="cls-team-R-1"
-                d="M70,70V0H0V80H140v-10H70Zm-38,7H12v-4.05h20v4.05Zm32,0h-20v-4.05h20v4.05Zm32,0h-20v-4.05h20v4.05Zm32,0h-20v-4.05h20v4.05Z"
-              />
+              {(() => {
+                switch (seriesLength) {
+                  case 3:
+                    return (
+                      <path
+                        className="cls-team-R-1"
+                        d="M0,0V80H70V0H0ZM30,77H10v-4H30v4Zm30,0h-20v-4h20v4Z"
+                      />
+                    );
+                  case 5:
+                    return (
+                      <path
+                        className="cls-team-R-1"
+                        d="M70,70V0H0V80H108v-10h-38Zm-38,7H12v-4.05h20v4.05Zm32,0h-20v-4.05h20v4.05Zm32,0h-20v-4.05h20v4.05Z"
+                      />
+                    );
+                  default:
+                    return (
+                      <path
+                        className="cls-team-R-1"
+                        d="M70,70V0H0V80H140v-10H70Zm-38,7H12v-4.05h20v4.05Zm32,0h-20v-4.05h20v4.05Zm32,0h-20v-4.05h20v4.05Zm32,0h-20v-4.05h20v4.05Z"
+                      />
+                    );
+                }
+              })()}
             </g>
             <g>
               <path

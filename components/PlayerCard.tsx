@@ -1,4 +1,12 @@
 import { Player } from "../types/GameData";
+import assist from "../public/Assist.svg";
+import save from "../public/Save.svg";
+import goal from "../public/Goal.svg";
+import demo from "../public/Demo.svg";
+import shot from "../public/Shot.svg";
+import Image from "next/image";
+import { Event } from "../types/GameData";
+import ScoreEvent from "./ScoreEvent";
 
 export default function PlayerCard({
   player,
@@ -6,13 +14,30 @@ export default function PlayerCard({
   primaryColor,
   secondaryColor,
   textColorOnSecondary,
+  event,
+  setPlayerEvents,
+  playerEvents,
 }: {
   player: Player;
   index: number;
   primaryColor: string;
   secondaryColor: string;
   textColorOnSecondary: string;
+  event: Event;
+  setPlayerEvents: Function;
+  playerEvents: {
+    [playerId: string]: Event;
+  };
 }) {
+  const eventImgs: { [name: string]: string } = {
+    Goal: goal,
+    Demolish: demo,
+    Shot: shot,
+    Save: save,
+    EpicSave: save,
+    Assist: assist,
+  };
+
   return (
     <div
       className="player-card-container"
@@ -30,6 +55,14 @@ export default function PlayerCard({
             }
       }
     >
+      <ScoreEvent
+        primaryColor={primaryColor}
+        eventImgs={eventImgs}
+        event={event}
+        team={player.team}
+        setPlayerEvents={setPlayerEvents}
+        playerEvents={playerEvents}
+      />
       <div
         className="player-card"
         style={{ width: "320px", height: "45px", position: "relative" }}
@@ -53,32 +86,49 @@ export default function PlayerCard({
               fontFamily: "The Bold Font",
               fontSize: "24px",
               color: "#" + textColorOnSecondary,
+              textDecoration: player.isDead ? "line-through" : "",
+              opacity: player.isDead ? 0.75 : 1,
             }}
           >
             {player.name}
           </h1>
-          <div style={{ display: "flex", alignItems: "flex-end" }}>
-            <p
-              style={{
-                fontFamily: "Mont",
-                fontSize: "16px",
-                fontWeight: "100",
-                color: "#" + textColorOnSecondary,
-              }}
-            >
-              BOOST
-            </p>
-            <h1
-              style={{
-                fontFamily: "The Bold Font",
-                fontSize: "24px",
-                paddingLeft: "6px",
-                color: "#" + textColorOnSecondary,
-              }}
-            >
-              {player.boost}
-            </h1>
-          </div>
+          {player.isDead ? (
+            <div style={{ display: "flex", alignItems: "flex-end" }}>
+              <p
+                style={{
+                  fontFamily: "Mont",
+                  fontSize: "16px",
+                  fontWeight: "100",
+                  color: "#" + textColorOnSecondary,
+                }}
+              >
+                DEMOED
+              </p>
+            </div>
+          ) : (
+            <div style={{ display: "flex", alignItems: "flex-end" }}>
+              <p
+                style={{
+                  fontFamily: "Mont",
+                  fontSize: "16px",
+                  fontWeight: "100",
+                  color: "#" + textColorOnSecondary,
+                }}
+              >
+                BOOST
+              </p>
+              <h1
+                style={{
+                  fontFamily: "The Bold Font",
+                  fontSize: "24px",
+                  paddingLeft: "6px",
+                  color: "#" + textColorOnSecondary,
+                }}
+              >
+                {player.boost}
+              </h1>
+            </div>
+          )}
         </div>
         <svg
           id="Layer_2"

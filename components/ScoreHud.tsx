@@ -13,6 +13,7 @@ type Props = {
     textColorOnPrimary: string;
     textColorOnSecondary: string;
   }[];
+  seriesLength: number;
 };
 
 export default function ScoreHud({
@@ -21,6 +22,7 @@ export default function ScoreHud({
   isOT,
   series,
   textColors,
+  seriesLength,
 }: Props) {
   const formattedTime: string = `${isOT ? "+" : ""}${Math.floor(
     time / 60
@@ -49,6 +51,7 @@ export default function ScoreHud({
         <LeftTeam
           team={teams[0]}
           seriesScore={series[0]}
+          seriesLength={seriesLength}
           textColorOnPrimary={textColors[0].textColorOnPrimary}
           textColorOnSecondary={textColors[0].textColorOnSecondary}
         />
@@ -73,6 +76,7 @@ export default function ScoreHud({
         <RightTeam
           team={teams[1]}
           seriesScore={series[1]}
+          seriesLength={seriesLength}
           textColorOnPrimary={textColors[1].textColorOnPrimary}
           textColorOnSecondary={textColors[1].textColorOnSecondary}
         />

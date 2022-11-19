@@ -67,6 +67,19 @@ export type GameUpdate = {
   };
 };
 
-export type SeriesScore = {
-  [teamName: string]: number;
+export type SeriesScore = [number, number];
+
+export type Event = {
+  event_name: string;
+  main_target: {
+    id: string;
+    name: string;
+    team_num: number;
+  };
+  secondary_target: {
+    id: string;
+    name: string;
+    team_num: number;
+  };
+  type: string;
 };
